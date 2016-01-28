@@ -1,0 +1,42 @@
+import java.util.Random;
+public class GameClass {
+	String board [][] = new String [15][15];
+	char [] cLetters = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n',
+			'o','p','q','r','s','t','u','v','w','x','y','z'};
+	char [] cPlayer1Tiles = new char [7];
+	char [] cPlayer2Tiles = new char [7];
+	public GameClass() {
+
+
+		setBoard();
+	}
+	//Makes Random Number with Inputted Number
+	public int getRandom(int random) {
+		Random rand = new Random();
+		return rand.nextInt(random);
+	}
+	//Makes 15X15 Scrabble Board
+	public void setBoard() {
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				board[i][j] = "[ ]";
+			}
+		}
+	}
+	//Prints out the Game Board
+	public String getBoard() {
+		String sBoard = "";
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				sBoard += board[i][j] + ""; 
+			}
+			sBoard += "\n";
+		}
+		return sBoard;
+	}
+	//This method will use the getRandom() method to generate random letters into each Player Tiles array with the index of the cLetters array.
+	public void setPlayerTiles() {
+		//Use a four loop to loop through 7 tiles to give each player 7 tiles. 
+	}
+	
+}
