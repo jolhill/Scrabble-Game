@@ -20,16 +20,17 @@ public class ScrabbleMain{
 			Player CurrentPlayer = aPlayers[playerTurn];
 			pile = CurrentPlayer.fillPile(pile);
 			scrabble.getBoard();
-			JOptionPane.showMessageDialog(null,CurrentPlayer.getHand());
+			JOptionPane.showMessageDialog(null, player1.getPlayerName() + "'s score: " + player1.getPlayerScore() + 
+					"\n" + player2.getPlayerName() + "'s score: " + player2.getPlayerScore());
 			boolean playWord = YesNoPrompt("Would you like to play a word?");
 			if(playWord){
-				String sWord = JOptionPane.showInputDialog(null,
+				String sWord = JOptionPane.showInputDialog(null,CurrentPlayer.getLetters() +
 						"Please enter a word you would like to play:");
 				int iPriorScore = CurrentPlayer.getPlayerScore();
 				scrabble = CurrentPlayer.playWord(sWord, scrabble);
 				int iAfterScore = CurrentPlayer.getPlayerScore();
 				int iDiff = iAfterScore - iPriorScore;
-				System.out.println("You scored " + iDiff + " points");	
+				System.out.println(CurrentPlayer.getPlayerName() + " scored " + iDiff + " points");	
 			}
 		
 			if(playerTurn == 1){
@@ -42,6 +43,8 @@ public class ScrabbleMain{
 		}
 		if(player1.getPlayerScore()>player2.getPlayerScore()){
 			System.out.println(player1.getPlayerName() + " wins!");
+			System.out.println(player1.getPlayerName() + " scored: " + player1.getPlayerScore());
+			System.out.println(player2.getPlayerName() + " scored: " + player2.getPlayerScore());
 		}
 		else if(player1.getPlayerScore()<player2.getPlayerScore()){
 			System.out.println(player2.getPlayerName() + " wins!");
