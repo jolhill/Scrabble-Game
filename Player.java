@@ -51,6 +51,14 @@ public class Player{
 		return sOutput;
 	}
 	
+	public String getLetters(){
+		String sOutput = getPlayerName() + "'s hand: ";
+		for(Tile tile : aPlayerPile){
+			sOutput += tile.getLetter() + " ";
+		}
+		return sOutput + "\n";
+	}
+	
 	//returns -1 if invalid word, else returns word score,does the scoring as well
 	//NEEDS AN OPTION TO PLACE IN THE BOARD
 	public Board playWord(String sWord, Board board){
