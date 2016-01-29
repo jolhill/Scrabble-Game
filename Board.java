@@ -20,13 +20,13 @@ public class Board {
 	public void setBoard() {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
-				board[i][j] = "[ ]";
+				board[i][j] = "| |";
 			}
 		}
 	}
 	public void setSquare(char c,int iRow,int iCollumn){
 		if(iRow < 15 && iCollumn <15){
-			board[iRow][iCollumn] ="[" + c + "]";
+			board[iRow][iCollumn] ="|" + c + "|";
 		}
 		
 	}
