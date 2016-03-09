@@ -36,11 +36,14 @@ public class ScrabbleMain{
 	
 	private static void playGame(Board scrabble, Pile pile, Player[] aPlayers,GUIClass gui) {
 		int playerTurn = 0;
+		
 		while(pile.getSize() > 7){
 			Player CurrentPlayer = aPlayers[playerTurn];
 			pile = CurrentPlayer.fillPile(pile);
-			gui.setHands(CurrentPlayer.getHand());
 			
+			gui.setHands(CurrentPlayer.getHand());
+			gui.setScores("Scores: " + aPlayers[0].getPlayerName() + ": " + aPlayers[0].getPlayerScore() + " " 
+					+ aPlayers[1].getPlayerName() + ": " + aPlayers[1].getPlayerScore());
 			//WAITS UNTIL ACTION IN GUICLASS INTERRUPTS
 			try {
 				synchronized (gui) {
@@ -58,6 +61,7 @@ public class ScrabbleMain{
 			int iPriorScore = CurrentPlayer.getPlayerScore();
 			scrabble = CurrentPlayer.playWord(sWord, scrabble,gui);
 			int iAfterScore = CurrentPlayer.getPlayerScore();
+			gui.setScores(CurrentPlayer + " " + iAfterScore);
 			int iDiff = iAfterScore - iPriorScore;
 			System.out.println("You scored " + iDiff + " points");	
 			
