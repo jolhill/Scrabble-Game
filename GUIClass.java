@@ -12,6 +12,7 @@ public class GUIClass extends JFrame {
 	private JPanel content;
 	private ButtonHandler bh;
 	private JTextField hands;
+	private JTextField introduction;
 	private JTextPane scores;
 	private int[] iSpotClicked;
 	private boolean clicked;
@@ -43,11 +44,10 @@ public class GUIClass extends JFrame {
 		setContentPane(content);
 		content.setLayout(new BorderLayout(0, 0));
 
-		JTextPane introduction = new JTextPane();
+		introduction = new JTextField("Scores will go here in this format: \"Player 1 : 0 Player 2: 0\"");
 		introduction.setPreferredSize( new Dimension( 200, 50 ) );
 		introduction.setEditable(false);
 		introduction.setFont(new Font("Tahoma", Font.BOLD, 20));
-		introduction.setText("Scores will go here in this format: \"Player 1 : 0 Player 2: 0\"");
 		introduction.setBackground(Color.WHITE);
 		content.add(introduction, BorderLayout.NORTH);
 
@@ -91,7 +91,7 @@ public class GUIClass extends JFrame {
 	}
 	
 	public void setScores(String score){
-		hands.setText(score);
+		introduction.setText(score);
 	}
 	
 	public void playChar(char c,int x,int y){
