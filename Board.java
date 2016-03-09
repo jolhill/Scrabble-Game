@@ -30,8 +30,7 @@ public class Board {
 		}
 		
 	}
-	public char getSquare(int iRow,char cCollumn){
-		int iCollumn = ((int)cCollumn) - 65;
+	public char getSquare(int iRow,int iCollumn){
 		return(board[iRow][iCollumn].charAt(1));
 	}
 	public Object [] getInput(){
@@ -54,15 +53,11 @@ public class Board {
 	
 	//POSSIBLE ARRAY OUT OF BOUNDS EXCEPTION IF USER DOESN'T
 	//LEAVE ENOUGH ROOM FOR THE WORD
-	public boolean setWord(String sWord,ArrayList<Tile> aPlayerPile){
+	public boolean setWord(String sWord,ArrayList<Tile> aPlayerPile, GUIClass gui){
 		sWord = sWord.toLowerCase();
-		//GETTING/FORMATTING INPUT
-		Object [] input = getInput();
-		String sOrientation = (String)input[0];
-		int iRow = (int)input[1];
-		char cCollumn = (char)input[2];
-		int iCollumn = ((int)cCollumn) - 64;
-		iRow--;iCollumn--;
+		int [] iCoords = gui.getSpotClicked();
+		int iRow = iCoords[0];
+		int iCollumn = iCoords[1];
 		//_____________VALIDITY CHECKING__________________
 		for (int i = 0; i < sWord.length(); i++) {
 			boolean hasLetter = false;
@@ -76,25 +71,32 @@ public class Board {
 					break;
 				}
 			}
-			if(!hasLetter && !(getSquare(iRow, cCollumn) == sWord.charAt(i))){
+			if(!hasLetter && !(getSquare(iRow, iCollumn) == sWord.charAt(i))){
 				return(false);
 			}
+		
 		}
 		//_____________BOARD MANIPULATION_________________
+		Object [] options = {"Vertical","Horizontal"};
+		String sOrientation = ((String)JOptionPane.showInputDialog(null, "Select Orientation",
+				"Orientation", JOptionPane.PLAIN_MESSAGE, null, options, "Vertical"));
 		if(sOrientation.equals("Vertical")){
 			for(int i = 0; i < sWord.length(); i++){
 				board[iRow][iCollumn] = "[" + sWord.charAt(i)+"]";
+				gui.playChar(sWord.charAt(i), iCollumn, iRow);
 				iRow++;
 			}
 		}
 		else{
 			for(int i = 0; i < sWord.length(); i++){
 				board[iRow][iCollumn] = "[" + sWord.charAt(i)+"]";
+				gui.playChar(sWord.charAt(i), iCollumn, iRow);
 				iCollumn++;
 			}
 		}
 		return true;
 	}
+	
 	//Prints out the Game Board
 	public void getBoard() {
 		String sTitle = "*";

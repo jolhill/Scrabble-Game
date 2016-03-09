@@ -61,9 +61,9 @@ public class Player{
 	
 	//returns -1 if invalid word, else returns word score,does the scoring as well
 	//NEEDS AN OPTION TO PLACE IN THE BOARD
-	public Board playWord(String sWord, Board board){
+	public Board playWord(String sWord, Board board,GUIClass gui){
 		int iScore = 0;
-		if(board.setWord(sWord,aPlayerPile)){
+		if(board.setWord(sWord,aPlayerPile,gui)){
 			for(int i = 0; i < sWord.length(); i++){
 				for(Tile t : aPlayerPile){
 					if(t.getLetter() == sWord.charAt(i)){

@@ -2,6 +2,7 @@ import javax.swing.JOptionPane;
 
 public class ScrabbleMain{
 	
+	
 	public static void main(String [] args){
 		
 		Board scrabble = new Board();
@@ -15,7 +16,10 @@ public class ScrabbleMain{
 		pile = player1.fillPile(pile);
 		pile = player2.fillPile(pile);
 		
-		playGame(scrabble, pile, aPlayers);
+		GUIClass gui = new GUIClass();
+		
+		playGame(scrabble, pile, aPlayers,gui);
+		
 	}
 	
 	private static void determineWinner(Player player1, Player player2) {
@@ -30,23 +34,33 @@ public class ScrabbleMain{
 		}
 	}
 	
-	private static void playGame(Board scrabble, Pile pile, Player[] aPlayers) {
+	private static void playGame(Board scrabble, Pile pile, Player[] aPlayers,GUIClass gui) {
 		int playerTurn = 0;
 		while(pile.getSize() > 7){
 			Player CurrentPlayer = aPlayers[playerTurn];
 			pile = CurrentPlayer.fillPile(pile);
-			scrabble.getBoard();
-			JOptionPane.showMessageDialog(null,CurrentPlayer.getHand());
-			boolean playWord = YesNoPrompt("Would you like to play a word?");
-			if(playWord){
-				String sWord = JOptionPane.showInputDialog(null,
-						"Please enter a word you would like to play:");
-				int iPriorScore = CurrentPlayer.getPlayerScore();
-				scrabble = CurrentPlayer.playWord(sWord, scrabble);
-				int iAfterScore = CurrentPlayer.getPlayerScore();
-				int iDiff = iAfterScore - iPriorScore;
-				System.out.println("You scored " + iDiff + " points");	
+			gui.setHands(CurrentPlayer.getHand());
+			
+			//WAITS UNTIL ACTION IN GUICLASS INTERRUPTS
+			try {
+				synchronized (gui) {
+					while(!gui.clicked()){
+						gui.wait();
+					}
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
+			gui.setClicked(false);
+			
+			String sWord = JOptionPane.showInputDialog(null,
+					"Please enter a word you would like to play:");
+			int iPriorScore = CurrentPlayer.getPlayerScore();
+			scrabble = CurrentPlayer.playWord(sWord, scrabble,gui);
+			int iAfterScore = CurrentPlayer.getPlayerScore();
+			int iDiff = iAfterScore - iPriorScore;
+			System.out.println("You scored " + iDiff + " points");	
+			
 		
 			if(playerTurn == 1){
 				playerTurn = 0;

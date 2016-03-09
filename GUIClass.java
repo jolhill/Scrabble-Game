@@ -10,21 +10,29 @@ public class GUIClass extends JFrame {
 	private JButton squares[][];
 	private JPanel content;
 	private ButtonHandler bh;
-	
-	//Only here for testing purposes
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIClass frame = new GUIClass();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	private JTextField hands;
+	private JTextPane scores;
+	private int[] iSpotClicked;
+	private boolean clicked;
+//	//Only here for testing purposes
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					GUIClass frame = new GUIClass();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
+	public boolean clicked(){
+		return clicked;
 	}
-	
+	public void setClicked(boolean b){
+		clicked = b;
+	}
 	public GUIClass() {
 		setTitle("Scrabble\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,6 +45,7 @@ public class GUIClass extends JFrame {
 		JTextPane introduction = new JTextPane();
 		introduction.setEditable(false);
 		introduction.setText("Welcome to Scrabble!");
+		introduction.setBackground(Color.red);
 		content.add(introduction, BorderLayout.NORTH);
 
 		bh = new ButtonHandler();
@@ -47,11 +56,12 @@ public class GUIClass extends JFrame {
 		//Creates GridLayout Inside Panel
 		panel.setLayout(new GridLayout(15, 15));
 		
-				JTextPane scores = new JTextPane();
-				content.add(scores, BorderLayout.WEST);
-				scores.setFont(new Font("Tahoma", Font.PLAIN, 15));
-				scores.setEditable(false);
-				scores.setText("Score: 0-0");
+		scores = new JTextPane();
+		content.add(scores, BorderLayout.WEST);
+		scores.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		scores.setEditable(false);
+		scores.setText("Score: 0-0");
+		scores.setBackground(Color.lightGray);
 		squares = new JButton[15][15];
 		setSize(1000,800);
 		//Makes buttons
@@ -65,12 +75,25 @@ public class GUIClass extends JFrame {
 			}
 
 		}
-
+		hands = new JTextField("HANDS GO HERE");
+		hands.setBackground(Color.CYAN);
+		content.add(hands, BorderLayout.SOUTH);
+		setVisible(true);
+	}
+	
+	public void setHands(String hand){
+		scores.setText(hand);
 	}
 	
 	public void playChar(char c,int x,int y){
 		squares[y][x].setText("" + c);
 		squares[y][x].removeActionListener(bh);
+	}
+	public int[] getSpotClicked() {
+		return iSpotClicked;
+	}
+	public void wakeUp(){
+		notifyAll();
 	}
 	
 	//REAL LOGIC NEEDS ADDED
@@ -78,15 +101,16 @@ public class GUIClass extends JFrame {
 		public void actionPerformed(ActionEvent ae) {
 			for (int i = 0; i < 15; i++) {
 				for (int j = 0; j < 15; j++) {
-
 					if (ae.getSource() == squares[i][j]) {
-						squares[i][j].setText("@");
+						iSpotClicked = new int[2];
+						iSpotClicked [0] = j;
+						iSpotClicked[1] = i;
+						clicked = true;
+						wakeUp();
+						return;
 					}
-
 				}
-
 			}
 		}
-
 	}
 }
