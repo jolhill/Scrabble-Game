@@ -39,11 +39,6 @@ public class GUIClass extends JFrame {
 		introduction.setText("Welcome to Scrabble!");
 		content.add(introduction, BorderLayout.NORTH);
 
-		JTextPane playerScoresAndInfo = new JTextPane();
-		playerScoresAndInfo.setEditable(false);
-		playerScoresAndInfo.setText("These are where player scores go");
-		content.add(playerScoresAndInfo, BorderLayout.EAST);
-
 		bh = new ButtonHandler();
 		
 		//Nests a JPanel inside BorderLayout Center
@@ -51,8 +46,14 @@ public class GUIClass extends JFrame {
 		content.add(panel, BorderLayout.CENTER);
 		//Creates GridLayout Inside Panel
 		panel.setLayout(new GridLayout(15, 15));
+		
+				JTextPane scores = new JTextPane();
+				content.add(scores, BorderLayout.WEST);
+				scores.setFont(new Font("Tahoma", Font.PLAIN, 15));
+				scores.setEditable(false);
+				scores.setText("Score: 0-0");
 		squares = new JButton[15][15];
-		setSize(1100,900);
+		setSize(1000,800);
 		//Makes buttons
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 15; j++) {
@@ -60,7 +61,7 @@ public class GUIClass extends JFrame {
 				squares[i][j].setText("*");
 				panel.add(squares[i][j]);
 				squares[i][j].addActionListener(bh);
-
+				squares[i][j].setBackground(Color.yellow);
 			}
 
 		}
