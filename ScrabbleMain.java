@@ -16,15 +16,13 @@ public class ScrabbleMain{
 		pile = player2.fillPile(pile);
 		
 		playGame(scrabble, pile, aPlayers);
-		determineWinner(player1, player2);
-		
 	}
 	
 	private static void determineWinner(Player player1, Player player2) {
-		if(player1.getPlayerScore()>player2.getPlayerScore()){
+		if(player1.getPlayerScore() > player2.getPlayerScore()){
 			System.out.println(player1.getPlayerName() + " wins!");
 		}
-		else if(player1.getPlayerScore()<player2.getPlayerScore()){
+		else if(player1.getPlayerScore() < player2.getPlayerScore()){
 			System.out.println(player2.getPlayerName() + " wins!");
 		}
 		else{
@@ -58,6 +56,7 @@ public class ScrabbleMain{
 			}
 			System.out.println("\n\n\n\n");
 		}
+		determineWinner(aPlayers[0], aPlayers[1]);
 	}
 	
 	public static boolean YesNoPrompt(String sMessage){

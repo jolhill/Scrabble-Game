@@ -3,13 +3,15 @@ import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 
+@SuppressWarnings("serial")
 public class GUIClass extends JFrame {
 
 	private JButton squares[][];
 	private JPanel content;
-
+	private ButtonHandler bh;
+	
+	//Only here for testing purposes
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -42,7 +44,7 @@ public class GUIClass extends JFrame {
 		playerScoresAndInfo.setText("These are where player scores go");
 		content.add(playerScoresAndInfo, BorderLayout.EAST);
 
-		ButtonHandler bh = new ButtonHandler();
+		bh = new ButtonHandler();
 		
 		//Nests a JPanel inside BorderLayout Center
 		JPanel panel = new JPanel();
@@ -50,7 +52,7 @@ public class GUIClass extends JFrame {
 		//Creates GridLayout Inside Panel
 		panel.setLayout(new GridLayout(15, 15));
 		squares = new JButton[15][15];
-		
+		setSize(1100,900);
 		//Makes buttons
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 15; j++) {
@@ -64,7 +66,13 @@ public class GUIClass extends JFrame {
 		}
 
 	}
-
+	
+	public void playChar(char c,int x,int y){
+		squares[y][x].setText("" + c);
+		squares[y][x].removeActionListener(bh);
+	}
+	
+	//REAL LOGIC NEEDS ADDED
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent ae) {
 			for (int i = 0; i < 15; i++) {
