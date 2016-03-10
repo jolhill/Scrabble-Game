@@ -51,7 +51,7 @@ public class Tile{
 		this.isBlankTile = isBlankTile;
 	}
 	public String toString() {
-		return "Letter: " + cLetter  + " Points: " + iPtValue +"\n";
+		return "| " + cLetter  + "-" + iPtValue +" ";
 	}
 	
 }

@@ -12,8 +12,7 @@ public class GUIClass extends JFrame {
 	private JPanel content;
 	private ButtonHandler bh;
 	private JTextField hands;
-	private JTextField introduction;
-	private JTextPane scores;
+	private JTextField scores;
 	private int[] iSpotClicked;
 	private boolean clicked;
 	private Scrabble scrabble;
@@ -34,12 +33,12 @@ public class GUIClass extends JFrame {
 		setContentPane(content);
 		content.setLayout(new BorderLayout(0, 0));
 
-		introduction = new JTextField("Scores will go here in this format: \"Player 1 : 0 Player 2: 0\"");
-		introduction.setPreferredSize( new Dimension( 200, 50 ) );
-		introduction.setEditable(false);
-		introduction.setFont(new Font("Tahoma", Font.BOLD, 20));
-		introduction.setBackground(Color.WHITE);
-		content.add(introduction, BorderLayout.NORTH);
+		scores = new JTextField("Player 1 : 0 Player 2: 0");
+		scores.setPreferredSize( new Dimension( 200, 50 ) );
+		scores.setEditable(false);
+		scores.setFont(new Font("Tahoma", Font.BOLD, 20));
+		scores.setBackground(Color.WHITE);
+		content.add(scores, BorderLayout.NORTH);
 
 		bh = new ButtonHandler();
 		
@@ -81,21 +80,17 @@ public class GUIClass extends JFrame {
 	}
 	
 	public void setScores(String score){
-		introduction.setText(score);
+		scores.setText(score);
 	}
 	
 	public void playChar(char c,int x,int y){
-		squares[y][x].setText("" + c);
-		squares[y][x].removeActionListener(bh);
+		squares[x][y].setText("" + c);
+		squares[x][y].removeActionListener(bh);
 	}
 	public int[] getSpotClicked() {
 		return iSpotClicked;
 	}
-	public void wakeUp(){
-		notifyAll();
-	}
 	
-	//REAL LOGIC NEEDS ADDED
 	private class ButtonHandler implements ActionListener {
 		public void actionPerformed(ActionEvent ae) {
 			for (int i = 0; i < 15; i++) {

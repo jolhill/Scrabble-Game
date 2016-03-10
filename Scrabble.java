@@ -6,6 +6,7 @@ public class Scrabble{
 	private Pile pile;
 	private Player [] aPlayers;
 	private GUIClass gui;
+	private int iPlayerTurn;
 	
 	public Scrabble(){
 		
@@ -20,6 +21,8 @@ public class Scrabble{
 		
 		pile = player1.fillPile(pile);
 		pile = player2.fillPile(pile);
+		
+		iPlayerTurn = 0;
 		
 		gui = new GUIClass(this);
 		gui.setHands(aPlayers[0].getHand());
@@ -39,11 +42,8 @@ public class Scrabble{
 	}
 	
 	public void playRound() {
-		
-		int playerTurn = 0;
-		
-		while(pile.getSize() > 7){
-			Player CurrentPlayer = aPlayers[playerTurn];
+		if(pile.getSize() > 7){
+			Player CurrentPlayer = aPlayers[iPlayerTurn];
 			pile = CurrentPlayer.fillPile(pile);
 			
 			gui.setHands(CurrentPlayer.getHand());
@@ -57,21 +57,26 @@ public class Scrabble{
 			scrabble = CurrentPlayer.playWord(sWord, scrabble,gui);
 			
 			int iAfterScore = CurrentPlayer.getPlayerScore();
-			gui.setScores(CurrentPlayer.getPlayerName() + " scored " + iAfterScore + " points");
+			//gui.setScores(CurrentPlayer.getPlayerName() + " scored " + iAfterScore + " points");
 			int iDiff = iAfterScore - iPriorScore;
 			
 			JOptionPane.showConfirmDialog(null, "You scored " + iDiff + " points",
 					"Points Scored", JOptionPane.OK_CANCEL_OPTION);
-			if(playerTurn == 1){
-				playerTurn = 0;
+			CurrentPlayer.setPlayerScore(CurrentPlayer.getPlayerScore() + iDiff);
+			gui.setScores("Player 1 : " + aPlayers[0].getPlayerScore() +
+					" Player 2: " + aPlayers[1].getPlayerScore());
+			if(iPlayerTurn == 1){
+				iPlayerTurn = 0;
 			}
 			else{
-				playerTurn = 1;
+				iPlayerTurn = 1;
 			}
-			CurrentPlayer = aPlayers[playerTurn];
+			CurrentPlayer = aPlayers[iPlayerTurn];
 			gui.setHands(CurrentPlayer.getHand());
 		}
-		determineWinner();
+		else{
+			determineWinner();
+		}
 	}
 
 }
