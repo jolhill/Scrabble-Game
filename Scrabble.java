@@ -57,7 +57,7 @@ public class Scrabble{
 			scrabble = CurrentPlayer.playWord(sWord, scrabble,gui);
 			
 			int iAfterScore = CurrentPlayer.getPlayerScore();
-			gui.setScores(CurrentPlayer + " " + iAfterScore);
+			gui.setScores(CurrentPlayer.getPlayerName() + " scored " + iAfterScore + " points");
 			int iDiff = iAfterScore - iPriorScore;
 			
 			JOptionPane.showConfirmDialog(null, "You scored " + iDiff + " points",
