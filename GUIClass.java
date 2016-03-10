@@ -16,26 +16,16 @@ public class GUIClass extends JFrame {
 	private JTextPane scores;
 	private int[] iSpotClicked;
 	private boolean clicked;
-//	//Only here for testing purposes
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					GUIClass frame = new GUIClass();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private Scrabble scrabble;
+	
 	public boolean clicked(){
 		return clicked;
 	}
 	public void setClicked(boolean b){
 		clicked = b;
 	}
-	public GUIClass() {
+	public GUIClass(Scrabble scrabble) {
+		this.scrabble = scrabble;
 		setTitle("Scrabble\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(500, 500, 650, 500);
@@ -114,9 +104,7 @@ public class GUIClass extends JFrame {
 						iSpotClicked = new int[2];
 						iSpotClicked [0] = j;
 						iSpotClicked[1] = i;
-						clicked = true;
-						//wakeUp();
-						return;
+						scrabble.playRound();
 					}
 				}
 			}
