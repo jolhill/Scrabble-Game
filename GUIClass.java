@@ -37,6 +37,7 @@ public class GUIClass extends JFrame {
 		scores.setPreferredSize( new Dimension( 200, 50 ) );
 		scores.setEditable(false);
 		scores.setFont(new Font("Tahoma", Font.BOLD, 20));
+		scores.setHorizontalAlignment(JTextField.CENTER);
 		scores.setBackground(Color.WHITE);
 		content.add(scores, BorderLayout.NORTH);
 
@@ -64,11 +65,11 @@ public class GUIClass extends JFrame {
 
 		}
 		hands = new JTextField("HANDS GO HERE (If we put hands here we need to clean up how we print the hands out... but scores could go here too.)");
-		
+		hands.setHorizontalAlignment(JTextField.CENTER);
 		hands.setBackground(Color.CYAN);
 		content.add(hands, BorderLayout.SOUTH);
 		hands.setPreferredSize( new Dimension( 100, 60 ) );
-		hands.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		hands.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		
 		setSize(800,800);
 		setResizable(false);
