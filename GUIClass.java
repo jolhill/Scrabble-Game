@@ -56,7 +56,8 @@ public class GUIClass extends JFrame {
 		for (int i = 0; i < 15; i++) {
 			for (int j = 0; j < 15; j++) {
 				squares[i][j] = new JButton();
-				squares[i][j].setText("*");
+				squares[i][j].setText("");
+				squares[i][j].setFont(new Font("Trebuchet MS", Font.BOLD, 15));;
 				panel.add(squares[i][j]);
 				squares[i][j].addActionListener(bh);
 				squares[i][j].setBackground(new Color(245, 222, 179));
