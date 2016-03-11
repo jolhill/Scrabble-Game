@@ -34,11 +34,11 @@ public class Board {
 		return(board[iRow][iCollumn].charAt(1));
 	}
 	public Object [] getInput(){
-		Object [] lDirections = {"Vertical","Horizontal"};
+		Object [] lDirections = {"Horizontal","Vertical"};
 		//keep null, Prompt, Title of box, Type of message, icon {ignore this}, object[] containing options, default anwser
 		String sOrientation = (String)JOptionPane.showInputDialog(null,
 				"Select word orientation", "Orientation",
-				JOptionPane.PLAIN_MESSAGE, null, lDirections, "Horizontal");
+				JOptionPane.PLAIN_MESSAGE, null, lDirections, "Vertical");
 		Object [] lNums = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 		int iRow = (int)JOptionPane.showInputDialog(null,
 				"Select row number", "Row",
@@ -83,7 +83,7 @@ public class Board {
 		if(sOrientation.equals("Vertical")){
 			for(int i = 0; i < sWord.length(); i++){
 				board[iRow][iCollumn] = "[" + sWord.charAt(i)+"]";
-				gui.playChar(sWord.charAt(i), iCollumn, iRow);
+				gui.playChar(sWord.charAt(i), iRow, iCollumn); //Flipped iRow and iCollumn around so it would print out vertically
 				iRow++;
 			}
 		}
